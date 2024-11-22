@@ -26,18 +26,14 @@ Hardware Requirements:
 
 Libraries Used:
 The following libraries are required to run the project. Install them using the Arduino Library Manager:
-+------------------+----------------------------------------+---------------------+
-| Library          | Purpose                                 | Publisher          |
-+------------------+----------------------------------------+---------------------+
-| WiFi             | Connects the ESP32 to Wi-Fi networks    | Arduino            |
-| HTTPClient       | Handles HTTP requests for API calls     | Arduino            |
-| ArduinoJson      | JSON parsing and serialization          | Benoît Blanchon    |
-| Wire             | I2C communication with the OLED         | Arduino            |
-| U8g2lib          | Controls the OLED display               | olikraus           |
-| SPIFFS           | Local storage on ESP32                  | Arduino            |
-| WiFiUdp          | UDP communication for NTP client        | Arduino            |
-| NTPClient        | Fetches the current time via NTP        | Fabrice Weinberg   |
-+------------------+----------------------------------------+---------------------+
+- WiFi by Arduino, Connects the ESP32 to Wi-Fi networks               
+- HTTPClient by Arduino, Handles HTTP requests for API calls               
+- ArduinoJson by Benoît Blanchon, JSON parsing and serialization              
+- Wire by Arduino, I2C communication with the OLED                     
+- U8g2lib by olikraus, Controls the OLED display                         
+- SPIFFS by Arduino, Local storage on ESP32                              
+- WiFiUdp by Arduino, UDP communication for NTP client                  
+- NTPClient by Fabrice Weinberg, Fetches the current time via NTP         
 
 Setup Instructions:
 
@@ -57,9 +53,9 @@ git clone [Link](https://github.com/maximal-max/C3-mini_0.66_OLED_current_Gold_a
    - Open the main.ino file.
    - Modify the following lines with your Wi-Fi SSID, password, and MetalPriceAPI key:
 
-     const char* ssid = "YourWiFiSSID";
-     const char* password = "YourWiFiPassword";
-     const char* apiKey = "YourAPIKey";
+     1. const char* ssid = "YourWiFiSSID";    
+     2. const char* password = "YourWiFiPassword";
+     3. const char* apiKey = "YourAPIKey";
      
 6. Upload the Code to your ESP32.
    
@@ -95,6 +91,6 @@ License:
 This project is open-source and available under the MIT License.
 
 Acknowledgments:
-Special thanks to olikraus for the U8g2lib library for OLED displays.
-Thanks to Benoît Blanchon for the ArduinoJson library.
-Time synchronization powered by NTPClient by Fabrice Weinberg.
+- Special thanks to olikraus for the U8g2lib library for OLED displays.
+- Thanks to Benoît Blanchon for the ArduinoJson library.
+- Time synchronization powered by NTPClient by Fabrice Weinberg.
