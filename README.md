@@ -43,9 +43,8 @@ The following libraries are required to run the project. Install them using the 
 2. Ensure the ESP32 has access to your local Wi-Fi.
 
 ### Software Setup:
-1. Clone the Project:
-   ```bash
-   git clone [Link](https://github.com/maximal-max/C3-mini_0.66_OLED_current_Gold_and_Bitcoin_prices.git)
+1. Download the Project:
+    https://github.com/maximal-max/C3-Mini/blob/main/0.66_OLED/latest_current_gold_and_bitcoin_prices_in_EUR.ino
 2. Open the Project in the Arduino IDE:
    - Launch Arduino IDE and go to **File > Open**.
    -Select the project folder you cloned and open the `main.ino` file.
