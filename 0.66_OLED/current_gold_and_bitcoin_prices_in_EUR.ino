@@ -103,16 +103,42 @@ void loop() {
 }
 
 void handleRoot() {
-  String html = "<html><body>";
-  html += "<h1>ESP32 WiFi Setup</h1>";
+  String html = "<html><head>";
+  html += "<style>";
+  html += "body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }";
+  html += "form { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 300px; }";
+  html += "input[type='text'], input[type='password'], input[type='number'] { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }";
+  html += "input[type='checkbox'] { margin-right: 10px; }";
+  html += "label { display: block; margin-bottom: 5px; font-weight: bold; }";
+  html += "button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }";
+  html += "button:hover { background: #0056b3; }";
+  html += "</style>";
+  html += "<script>";
+  html += "function togglePassword() {";
+  html += "  var passwordInput = document.getElementById('password');";
+  html += "  if (passwordInput.type === 'password') {";
+  html += "    passwordInput.type = 'text';";
+  html += "  } else {";
+  html += "    passwordInput.type = 'password';";
+  html += "  }";
+  html += "}";
+  html += "</script>";
+  html += "</head><body>";
   html += "<form action='/save' method='get'>";
-  html += "SSID: <input type='text' name='ssid'><br>";
-  html += "Password: <input type='password' name='password'><br>";
-  html += "API Key: <input type='text' name='apiKey'><br>";
-  html += "Fetch Cycle Time (seconds): <input type='number' name='fetchCycleTime'><br>";
-  html += "<input type='submit' value='Save'>";
+  html += "<h2>ESP32 WiFi Setup</h2>";
+  html += "<label for='ssid'>SSID:</label>";
+  html += "<input type='text' id='ssid' name='ssid' placeholder='Enter WiFi SSID'>";
+  html += "<label for='password'>Password:</label>";
+  html += "<input type='password' id='password' name='password' placeholder='Enter WiFi Password'>";
+  html += "<div><input type='checkbox' onclick='togglePassword()'> Show Password</div>";
+  html += "<label for='apiKey'>API Key:</label>";
+  html += "<input type='text' id='apiKey' name='apiKey' placeholder='Enter API Key'>";
+  html += "<label for='fetchCycleTime'>Fetch Cycle (minutes):</label>";
+  html += "<input type='number' id='fetchCycleTime' name='fetchCycleTime' placeholder='Enter Fetch Cycle Time'>";
+  html += "<button type='submit'>Save</button>";
   html += "</form>";
   html += "</body></html>";
+
   server.send(200, "text/html", html);
 }
 
@@ -129,7 +155,8 @@ void handleSave() {
     writeFile("/apiKey.txt", apiKey);
 
     if (cycleTimeString != "") {
-      fetchCycleTime = cycleTimeString.toInt();
+      int fetchCycleInMinutes = cycleTimeString.toInt();
+      fetchCycleTime = fetchCycleInMinutes * 60; // Convert minutes to seconds
       writeFile("/fetchCycleTime.txt", String(fetchCycleTime));
     }
 
@@ -309,14 +336,14 @@ void displayLastUpdateTime() {
   char timeString[32];
   
   // Separate date and time formats
-  strftime(dateString, sizeof(dateString), "%Y.%m.%d", &timeinfo);
+  strftime(dateString, sizeof(dateString), "%d-%m-%y", &timeinfo);
   strftime(timeString, sizeof(timeString), "%H:%M:%S", &timeinfo);
 
   // Display date and time separately
   u8g2.clearBuffer();
   u8g2.setFont(u8g2_font_6x12_tf);
   u8g2.setCursor(40, 35);
-  u8g2.print("Last Update:");
+  u8g2.print("Updated:");
   u8g2.setCursor(40, 45);
   u8g2.print(dateString); // Display the date
   u8g2.setCursor(40, 55);
